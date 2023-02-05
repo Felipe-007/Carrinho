@@ -11,7 +11,7 @@ import { CartContext } from "../../components/contexts/CartContext";  //todos mu
 
 export default function Home() {
 
-  const { carrinho } = useContext(CartContext)
+  const { carrinho, addItemCart } = useContext(CartContext)  //valores recebidos do Context/CartContext.js
 
   const navigation = useNavigation();
 
@@ -48,6 +48,10 @@ export default function Home() {
     },
   ])
 
+  function handleAddCart(item){
+    addItemCart(item)
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.cartContent}>
@@ -71,7 +75,7 @@ export default function Home() {
         style={styles.list}
         data={products}
         keyExtractor={(item) => String(item.id)}  //converte a lista em string
-        renderItem={({ item }) => <Product data={item} />}  //passa para o item as propriedades da lista
+        renderItem={({ item }) => <Product data={item} adicionaAoCarrinho={ () => handleAddCart(item) } />}  //passa para o item as propriedades da lista, passa para o home tbem a funcao adicionaAoCarrinho
       />
 
     </SafeAreaView>

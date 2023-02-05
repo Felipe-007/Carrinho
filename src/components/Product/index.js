@@ -6,7 +6,7 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { styles } from "./styles";
 
-export default function Product({ data }) {  //({ data }) pega as propriedades da lista home/index.js
+export default function Product({ data, adicionaAoCarrinho }) {  //({ data }) pega as propriedades da lista home/index.js
   return (
     <View style={styles.container}>
       <View>
@@ -14,7 +14,7 @@ export default function Product({ data }) {  //({ data }) pega as propriedades d
         <Text style={styles.price}>R$ {data.price}</Text>
       </View>
 
-      <TouchableOpacity style={styles.buttonAdd}>
+      <TouchableOpacity style={styles.buttonAdd} onPress={adicionaAoCarrinho}>
         <Text style={styles.buttonText}>+</Text>
       </TouchableOpacity>
     </View>
