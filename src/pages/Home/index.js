@@ -1,12 +1,19 @@
 /**
  * Home
  */
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text, SafeAreaView, FlatList, TouchableOpacity } from "react-native";
 import { styles } from "./styles";
 import { AntDesign } from '@expo/vector-icons';
+import Product from "../../components/Product";
+import { useNavigation } from "@react-navigation/native";
+import { CartContext } from "../../components/contexts/CartContext";  //todos mundo tera acesso aos componentes do card
 
 export default function Home() {
+
+  const { carrinho } = useContext(CartContext)
+
+  const navigation = useNavigation();
 
   const [products, setProducts] = useState([
     {
@@ -46,14 +53,27 @@ export default function Home() {
       <View style={styles.cartContent}>
         <Text style={styles.title}>Lista de produtos</Text>
 
-        <TouchableOpacity style={styles.cardButton}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Cart")}
+          style={styles.cardButton}
+        >
           <View style={styles.dot}>
-            <Text style={styles.dotText}>3</Text>
+            <Text style={styles.dotText}>
+              {carrinho?.length}
+            </Text>
           </View>
 
           <AntDesign name="shoppingcart" size={30} color="black" />
         </TouchableOpacity>
+
       </View>
+      <FlatList
+        style={styles.list}
+        data={products}
+        keyExtractor={(item) => String(item.id)}  //converte a lista em string
+        renderItem={({ item }) => <Product data={item} />}  //passa para o item as propriedades da lista
+      />
+
     </SafeAreaView>
   )
 }

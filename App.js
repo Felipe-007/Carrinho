@@ -8,12 +8,15 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import Routes from "./src/routes";
 import { StatusBar } from "react-native";
+import CartProvider from "./src/components/contexts/CartContext";  //todos mundo tera acesso aos componentes do card
 
-export default function App(){
-  return(
+export default function App() {
+  return (
     <NavigationContainer>
-      <StatusBar backgroundColor="#FAFAFA" barStyle="dark-content" />
-      <Routes />
+      <CartProvider>
+        <StatusBar backgroundColor="#FAFAFA" barStyle="dark-content" />
+        <Routes />
+      </CartProvider>
     </NavigationContainer>
   )
 }

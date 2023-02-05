@@ -36,4 +36,7 @@ export const styles = StyleSheet.create({
   dotText: {
     fontSize: 12,
   },
+  list: {
+
+  },
 })
