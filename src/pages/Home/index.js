@@ -48,7 +48,7 @@ export default function Home() {
     },
   ])
 
-  function handleAddCart(item){
+  function handleAddCart(item) {
     addItemCart(item)
   }
 
@@ -61,11 +61,13 @@ export default function Home() {
           onPress={() => navigation.navigate("Cart")}
           style={styles.cardButton}
         >
-          <View style={styles.dot}>
-            <Text style={styles.dotText}>
-              {carrinho?.length}
-            </Text>
-          </View>
+          {carrinho.length >= 1 && (  //somente mostra o carrinho se ele for maior que 1item
+            <View style={styles.dot}>
+              <Text style={styles.dotText}>
+                {carrinho?.length}
+              </Text>
+            </View>
+          )}
 
           <AntDesign name="shoppingcart" size={30} color="black" />
         </TouchableOpacity>
@@ -75,7 +77,7 @@ export default function Home() {
         style={styles.list}
         data={products}
         keyExtractor={(item) => String(item.id)}  //converte a lista em string
-        renderItem={({ item }) => <Product data={item} adicionaAoCarrinho={ () => handleAddCart(item) } />}  //passa para o item as propriedades da lista, passa para o home tbem a funcao adicionaAoCarrinho
+        renderItem={({ item }) => <Product data={item} adicionaAoCarrinho={() => handleAddCart(item)} />}  //passa para o item as propriedades da lista, passa para o home tbem a funcao adicionaAoCarrinho
       />
 
     </SafeAreaView>
