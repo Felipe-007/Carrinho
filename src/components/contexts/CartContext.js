@@ -19,7 +19,7 @@ function CartProvider({ children }) {
 
       cartList[indexItem].amount = cartList[indexItem].amount + 1;  //ao adicionar o mesmo item, ira somar a quantidade
       cartList[indexItem].total = cartList[indexItem].amount * cartList[indexItem].price  //pega a quantidade e multiplica pelo preço
-    
+
       setCarrinho(cartList);
       return
     }
@@ -34,9 +34,28 @@ function CartProvider({ children }) {
     setCarrinho(products => [...products, data])  //setCarrinho recebe a lista e os itens adicionados
   }
 
+  function removeItemCart(product) {
+    const indexItem = carrinho.findIndex(item => item.id === product.id)  //percorre dentro do carrinho um item que seja igual a ele
+
+    if (carrinho[indexItem]?.amount > 1) {
+      let cartList = carrinho
+
+      cartList[indexItem].amount = cartList[indexItem].amount - 1
+
+      cartList[indexItem].total = cartList[indexItem].total - cartList[indexItem].price
+
+      setCarrinho(cartList);
+      return;
+    }
+
+    //cai aqui caso o queira remover o ultimo item do carrinho, ou seja, remover o 1
+    const removeItem = carrinho.filter(item => item.id !== product.id);
+    setCarrinho(removeItem);
+  }
+
   return (
     <CartContext.Provider
-      value={{ carrinho, addItemCart }}
+      value={{ carrinho, addItemCart, removeItemCart }}
     >
       {children}
     </CartContext.Provider>
